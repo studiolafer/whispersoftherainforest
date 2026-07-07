@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Season II · Whispers of the Rainforest — THE CLOUD by Käfer</title>
+<meta name="description" content="Season II — Whispers of the Rainforest. Eine digitale Mise-en-Place des Amazonas. THE CLOUD by Käfer, BMW Welt München." />
+
+<!--
+  THE CLOUD by Käfer — Season II · "Whispers of the Rainforest"
+  ------------------------------------------------------------------
+  Digitale Mise-en-Place. Sieben Zutaten des Amazonas, gelesen als System.
+  Eine Datei — CSS + JS eingebettet, keine externen Frameworks.
+  Line-Art: handgezeichnete SVG (draw-in), an die Fotos angepasst.
+  Optimiert für Mobile, iPad und Desktop.
+-->
+
+<style>
+/* ============================================================
+   THE CLOUD by Käfer — Season II
+   Amazon Green System · Noah Typography · Minimal Palette
+   Palette extracted from attached reference:
+   #2F3311 / #303019 / #474717 / #646E60 / #734529 / #401B0C / #DDD39A / #D8D8A7
+   ============================================================ */
+:root{
+  --amazon:      #2F3311;
+  --amazon-2:    #303019;
+  --amazon-3:    #474717;
+  --leaf:        #646E60;
+  --earth:       #401B0C;
+  --clay:        #734529;
+  --ivory:       #DDD39A;
+  --ivory-2:     #D8D8A7;
+
+  --text:        var(--ivory);
+  --text-soft:   rgba(221,211,154,.72);
+  --text-mute:   rgba(216,216,167,.42);
+  --line:        rgba(221,211,154,.14);
+  --line-soft:   rgba(221,211,154,.07);
+  --panel:       rgba(48,48,25,.42);
+  --panel-strong:rgba(48,48,25,.66);
+
+  --edge: clamp(22px, 5vw, 72px);
+  --noah: "Noah", "Noah Regular", "Noah Text", "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.19,1,.22,1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(90% 70% at 18% -10%, rgba(100,110,96,.22), transparent 62%),
+    radial-gradient(76% 70% at 98% 110%, rgba(64,27,12,.28), transparent 64%),
+    linear-gradient(180deg, var(--amazon), var(--amazon-2));
+  color:var(--text);
+  font-family:var(--noah);
+  font-weight:300;
+  line-height:1.55;
+  letter-spacing:.012em;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:
+    linear-gradient(90deg, rgba(221,211,154,.032) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(221,211,154,.022) 1px, transparent 1px);
+  background-size: clamp(72px, 8vw, 128px) clamp(72px, 8vw, 128px);
+  mask-image:linear-gradient(180deg, #000 0%, rgba(0,0,0,.48) 44%, transparent 100%);
+}
+img{ display:block; max-width:100%; }
+::selection{ background:rgba(115,69,41,.48); color:var(--ivory); }
+
+.eyebrow,
+.hero__season,
+.hero__meta .cell .k,
+.detail__frag span,
+.detail__foot .m .k,
+.scrollcue,
+.pager button,
+.foot__meta,
+.tab{
+  font-family:var(--noah);
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-weight:400;
+}
+.eyebrow{ font-size:.66rem; color:var(--text-mute); }
+.mono{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; letter-spacing:.12em; }
+
+/* ============================================================
+   Masthead — attached ivory logo mark
+   ============================================================ */
+.masthead{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px var(--edge);
+  padding-top:calc(18px + env(safe-area-inset-top));
+  background:linear-gradient(180deg, rgba(47,51,17,.92), rgba(47,51,17,.58) 58%, transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(221,211,154,.055);
+}
+.masthead .logo{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  opacity:.92;
+}
+.masthead .coord{
+  font-size:.58rem;
+  color:var(--text-mute);
+}
+@media(max-width:620px){
+  .masthead{ padding-top:calc(14px + env(safe-area-inset-top)); padding-bottom:14px; }
+  .masthead .coord{ display:none; }
+  .masthead .logo{ width:38px; height:38px; }
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:128px var(--edge) 84px;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  right:calc(var(--edge) * .72);
+  top:22%;
+  width:min(34vw, 360px);
+  aspect-ratio:1;
+  border:1px solid rgba(221,211,154,.095);
+  border-radius:50%;
+  opacity:.72;
+  transform:translateY(-10%);
+}
+.hero__season{
+  font-size:.67rem;
+  color:var(--text-mute);
+  margin-bottom:2.1rem;
+  opacity:0;
+  transform:translateY(12px);
+  animation:rise .9s .1s var(--ease) forwards;
+}
+.hero__title{
+  font-family:var(--noah);
+  font-weight:300;
+  font-size:clamp(3.25rem, 8.1vw, 8.15rem);
+  line-height:.94;
+  letter-spacing:-.055em;
+  max-width:12.8ch;
+  color:var(--ivory);
+}
+.hero__title span{ display:block; padding:.02em .06em .06em 0; }
+.hero__title span i{
+  display:inline-block;
+  font-style:normal;
+  opacity:0;
+  transform:translateY(30px);
+  animation:reveal 1.1s var(--ease) forwards;
+}
+.hero__title span:nth-child(1) i{ animation-delay:.18s; }
+.hero__title span:nth-child(2) i{ animation-delay:.32s; }
+.hero__title .accent{ color:var(--ivory-2); }
+.hero__intro{
+  margin-top:2.5rem;
+  max-width:52ch;
+  font-size:clamp(.96rem, 1.3vw, 1.08rem);
+  color:var(--text-soft);
+  line-height:1.78;
+  opacity:0;
+  animation:fade 1.2s .8s forwards;
+}
+.hero__meta{
+  margin-top:3.2rem;
+  display:flex;
+  gap:2.8rem;
+  flex-wrap:wrap;
+  opacity:0;
+  animation:fade 1.2s 1s forwards;
+}
+.hero__meta .cell .k{ font-size:.58rem; color:var(--text-mute); }
+.hero__meta .cell .v{
+  margin-top:.35rem;
+  color:var(--ivory);
+  font-size:1rem;
+  letter-spacing:.02em;
+}
+.scrollcue{
+  position:absolute;
+  bottom:28px;
+  left:var(--edge);
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  font-size:.58rem;
+  color:var(--text-mute);
+  opacity:0;
+  animation:fade 1.2s 1.3s forwards;
+}
+.scrollcue .line{
+  width:44px;
+  height:1px;
+  background:var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.scrollcue .line::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  width:40%;
+  background:var(--ivory);
+  animation:sweep 2.8s ease-in-out infinite;
+}
+@media(max-width:760px){ .hero::after{ display:none; } }
+
+/* ============================================================
+   Philosophy
+   ============================================================ */
+.philo{
+  padding:clamp(72px,12vw,144px) var(--edge);
+  border-top:1px solid var(--line);
+  max-width:1180px;
+}
+.philo .eyebrow{ margin-bottom:2.2rem; }
+.philo__lead{
+  font-family:var(--noah);
+  font-weight:300;
+  font-size:clamp(1.7rem, 4.1vw, 3.35rem);
+  line-height:1.12;
+  letter-spacing:-.035em;
+  max-width:22ch;
+  color:var(--ivory);
+}
+.philo__lead .soft{ color:var(--text-soft); }
+.philo__body{
+  margin-top:3rem;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:clamp(1.7rem,4vw,3.4rem);
+  max-width:850px;
+}
+.philo__body p{
+  font-size:.98rem;
+  color:var(--text-soft);
+  line-height:1.78;
+}
+.philo__body p .lead,
+.panel__body p .lead{ color:var(--ivory); }
+.philo__close{
+  margin-top:clamp(3rem,6vw,4.4rem);
+  font-size:clamp(1.05rem,2.4vw,1.55rem);
+  color:var(--ivory-2);
+  line-height:1.35;
+  letter-spacing:-.015em;
+}
+@media(max-width:640px){ .philo__body{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   Atlas / Navigation
+   ============================================================ */
+.atlas{
+  position:relative;
+  padding:0 var(--edge);
+  border-top:1px solid var(--line);
+}
+.atlas__head{
+  display:flex;
+  align-items:baseline;
+  gap:1rem;
+  padding:34px 0 24px;
+}
+.atlas__head h2{
+  font-family:var(--noah);
+  font-weight:300;
+  font-size:clamp(1.25rem,2.8vw,1.9rem);
+  letter-spacing:-.018em;
+}
+.index{
+  display:flex;
+  gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  -webkit-overflow-scrolling:touch;
+}
+.index::-webkit-scrollbar{ display:none; }
+.idx{
+  flex:0 0 auto;
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--text-mute);
+  padding:17px 22px 16px;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  font-family:var(--noah);
+  text-align:left;
+  border-right:1px solid var(--line-soft);
+  transition:color .35s ease, background .35s ease;
+  position:relative;
+}
+.idx .num{ font-size:.58rem; color:var(--text-mute); }
+.idx .nm{ font-size:.79rem; letter-spacing:.035em; white-space:nowrap; }
+.idx::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  height:1px;
+  width:0;
+  background:var(--ivory);
+  transition:width .55s var(--ease);
+}
+.idx:hover{ color:var(--text-soft); }
+.idx.active{ color:var(--ivory); background:rgba(48,48,25,.32); }
+.idx.active .num{ color:var(--ivory); }
+.idx.active::after{ width:100%; }
+@media(hover:hover){ .idx:hover::after{ width:34%; } .idx.active:hover::after{ width:100%; } }
+
+/* ============================================================
+   Detail Card
+   ============================================================ */
+.card{
+  display:grid;
+  grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+  min-height:min(74vh, 660px);
+  transition:opacity .45s ease;
+}
+.card.swapping{ opacity:0; }
+@media(max-width:860px){ .card{ grid-template-columns:1fr; } }
+.plate{
+  position:relative;
+  border-right:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:52px 42px;
+  overflow:hidden;
+}
+@media(max-width:860px){ .plate{ border-right:none; border-bottom:1px solid var(--line); min-height:52vh; } }
+.plate::before{
+  content:"";
+  position:absolute;
+  width:min(78%, 500px);
+  aspect-ratio:1;
+  border-radius:50%;
+  border:1px solid rgba(221,211,154,.10);
+  box-shadow:0 0 0 1px rgba(221,211,154,.025) inset;
+}
+.plate::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(60% 60% at 50% 50%, rgba(100,110,96,.16), transparent 68%);
+  opacity:.75;
+}
+.plate .tick{
+  position:absolute;
+  font-size:.54rem;
+  letter-spacing:.18em;
+  color:var(--text-mute);
+  z-index:2;
+}
+.plate .tick.tl{ top:20px; left:22px; }
+.plate .tick.tr{ top:20px; right:22px; }
+.plate .tick.bl{ bottom:20px; left:22px; }
+.plate .tick.br{ bottom:20px; right:22px; text-align:right; }
+.figure{ width:min(76%, 420px); position:relative; z-index:3; }
+.figure svg{ width:100%; height:auto; display:block; overflow:visible; }
+.figure .stroke{
+  fill:none;
+  stroke:var(--ivory);
+  stroke-width:1.08;
+  vector-effect:non-scaling-stroke;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:var(--len,1600);
+  stroke-dashoffset:var(--len,1600);
+}
+.figure .stroke.thin{ stroke:rgba(221,211,154,.66); stroke-width:.72; }
+.figure .stroke.hl{ stroke:var(--clay); }
+.figure .stroke.moss{ stroke:var(--leaf); }
+.figure.draw .stroke{ animation:draw 1.6s cubic-bezier(.3,.6,.25,1) forwards; }
+.figure.draw .stroke.d1{ animation-delay:.05s; }
+.figure.draw .stroke.d2{ animation-delay:.28s; }
+.figure.draw .stroke.d3{ animation-delay:.5s; }
+.figure.draw .stroke.d4{ animation-delay:.72s; }
+.figure .axis{ stroke:rgba(221,211,154,.12); stroke-width:1; stroke-dasharray:3 6; vector-effect:non-scaling-stroke; }
+.figure .dot{ fill:var(--ivory); }
+.figure .breathe{ transform-box:fill-box; transform-origin:center; animation:breathe 9s ease-in-out infinite; }
+
+.detail{
+  padding:clamp(30px,4.2vw,56px);
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(180deg, rgba(48,48,25,.14), rgba(48,48,25,.04));
+}
+.detail__frag{
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+  margin-bottom:1.35rem;
+}
+.detail__frag .dotmark{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ivory);
+  box-shadow:0 0 0 4px rgba(221,211,154,.095);
+}
+.detail__frag span{ font-size:.59rem; color:var(--text-mute); }
+.detail__name{
+  font-family:var(--noah);
+  font-weight:300;
+  font-size:clamp(2rem, 4.6vw, 3.25rem);
+  line-height:1.02;
+  letter-spacing:-.04em;
+}
+.detail__latin{
+  margin-top:.55rem;
+  font-size:.98rem;
+  color:var(--text-mute);
+  letter-spacing:.01em;
+}
+.detail__lede{
+  margin-top:1.35rem;
+  font-size:.97rem;
+  color:var(--text-soft);
+  max-width:44ch;
+  line-height:1.76;
+}
+.switch{
+  margin-top:auto;
+  padding-top:2.3rem;
+  display:flex;
+  gap:0;
+  border-bottom:1px solid var(--line);
+}
+.tab{
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--text-mute);
+  padding:0 0 14px;
+  margin-right:26px;
+  font-size:.62rem;
+  position:relative;
+  transition:color .35s ease;
+}
+.tab::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  height:1px;
+  width:0;
+  background:var(--ivory);
+  transition:width .5s var(--ease);
+}
+.tab:hover{ color:var(--text-soft); }
+.tab.active{ color:var(--ivory); }
+.tab.active::after{ width:100%; }
+@media(max-width:420px){ .tab{ margin-right:15px; font-size:.58rem; letter-spacing:.14em; } }
+.panel{ margin-top:1.8rem; min-height:6.8rem; position:relative; }
+.panel__body{ opacity:0; transform:translateY(8px); transition:opacity .5s ease, transform .5s ease; }
+.panel__body.in{ opacity:1; transform:none; }
+.panel__body p{
+  font-size:1rem;
+  color:var(--text-soft);
+  line-height:1.76;
+  max-width:46ch;
+  font-weight:300;
+}
+.detail__foot{
+  margin-top:2rem;
+  display:flex;
+  gap:1.9rem;
+  flex-wrap:wrap;
+  border-top:1px solid var(--line-soft);
+  padding-top:1.2rem;
+}
+.detail__foot .m .k{ font-size:.54rem; color:var(--text-mute); }
+.detail__foot .m .v{ font-size:.82rem; color:var(--text-soft); margin-top:.28rem; }
+.pager{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid var(--line);
+  padding:20px 0;
+  gap:1rem;
+}
+.pager button{
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--text-soft);
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  padding:8px 0;
+  font-size:.62rem;
+  transition:color .35s ease, gap .35s ease;
+}
+.pager button:hover{ color:var(--ivory); }
+.pager button:disabled{ opacity:.25; cursor:default; }
+.pager .arrow{ font-size:1rem; }
+.pager .next:hover, .pager .prev:hover{ gap:1.1rem; }
+.pager .counter{ font-size:.64rem; color:var(--text-mute); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.foot{
+  border-top:1px solid var(--line);
+  padding:76px var(--edge) 64px;
+  padding-bottom:calc(64px + env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  gap:2.4rem;
+}
+.foot__line{
+  font-family:var(--noah);
+  font-weight:300;
+  font-size:clamp(1.25rem,3.2vw,2.05rem);
+  color:var(--text-soft);
+  max-width:27ch;
+  line-height:1.3;
+  letter-spacing:-.025em;
+}
+.foot__row{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.4rem; }
+.foot__logo{ width:42px; height:42px; object-fit:contain; opacity:.82; }
+.foot__meta{ font-size:.58rem; color:var(--text-mute); text-align:right; line-height:1.8; }
+
+/* ============================================================
+   Motion & Accessibility
+   ============================================================ */
+@keyframes reveal{ to{ opacity:1; transform:translateY(0); } }
+@keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+@keyframes fade{ to{ opacity:1; } }
+@keyframes draw{ to{ stroke-dashoffset:0; } }
+@keyframes sweep{ 0%{ transform:translateX(-100%);} 50%{ transform:translateX(160%);} 100%{ transform:translateX(160%);} }
+@keyframes breathe{ 0%,100%{ transform:translateY(0) scale(1);} 50%{ transform:translateY(-4px) scale(1.012);} }
+@media(prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition-duration:.001ms !important; }
+  .hero__season,.hero__intro,.hero__meta,.scrollcue,.hero__title span i{ opacity:1 !important; transform:none !important; }
+  .figure .stroke{ stroke-dashoffset:0 !important; }
+  .panel__body{ opacity:1 !important; transform:none !important; }
+}
+:focus-visible{ outline:1px solid var(--ivory); outline-offset:3px; }
+
+@media(min-width:760px) and (max-width:1180px){
+  .hero__title{ font-size:clamp(3.25rem, 7.1vw, 5.65rem); }
+  .idx{ padding:20px 24px 19px; }
+  .tab{ padding-bottom:16px; }
+  .pager button{ padding:12px 0; }
+  .philo__body{ max-width:760px; }
+}
+@media(min-width:760px) and (max-width:860px){
+  .plate{ min-height:46vh; }
+  .card{ min-height:auto; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== KOPFZEILE (Logo-Mark) ===== -->
+<header class="masthead">
+  <img class="logo" alt="THE CLOUD by Käfer"
+       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANgAAADSCAYAAAAouw6LAAAACXBIWXMAAC4jAAAuIwF4pT92AAAP90lEQVR4nO2d3XHbShKFz3Ut3lAlZSBuBGIGxkZgbQSmI7hyBEtHcOkIBEVwqQgMRWAxggtmYFbhDQ/ah8YYFERiGiAGP4PzValE0UNhLMxB9/T09Pzx+vqKzsmzJYBrBGHS/S8nZDp86Pw35tkdgJ8AfiDPfiHP7ju/BiFdkWcr5FmKPHtFnm26/vXdCwxYHr2+AvAX8ixBnl07uBYh7cizJfLsBcADgJvi3WXNJ1rhQmAvJ977CCAtXEdChkW8rATAretLuRBYAuBw4v0rAAnybOXgmoTokPH3N2Q8Vtl2fbnuBRaEvwCc82WvADxQZGQQZNw91LToXGB/OIoiXgNIcfopYfiCIIy7vzghJ8izCMCPmhaPCMJV15d14SIaK7a2tHoofGFC3CJzf5t1Wru4tBuBAUAQbgA8W1rFDHwQp4g3FaPem/qGIExdXN6Ni2jQuYp7AMvC6hHSLRKKr4sW7hCEzh7y7iwYYFzFyNLqBhJd5DoZ6ZY8i1EvrgMAp9MUtwIDgCB8AfDF0uoWYsYJ6QYR1+eaFgcAkSvX0OBeYACKaKFNZJ+KPwohl5Fna+jEdSopolPczsGq2NchAEfhUjITdGPsvwjCzte8TtGPBTPoLNlnWjLSCp24vvQlLqBvgQEUGXGDXlyx+86U9C8wgCIj3SJzrtGJC+h7DlaFczJyKbpo4f1QaXnDCgzQi0z+SFyMJiX6ULzzaOE5hhcYYPbnxKjP+NhB/lgU2dyRpIQtZJ/hOQYXFzDUHKyKRHUinN5HZriFZHwwd3HO5NkCsuewTlw7SPrdoOICxmLBDPJkSmBPbxn8yUQGQLacbFHv6TwDuBuLpzMOC2Yocxcfa1pdAfjJTZszQ4on/UC9uB4RhKOaRozLgh0jodf/WVoxwug74tVsUB/MAEa6gXe8AgO0LsEO4hKkfXSJ9IjMt2PUTxn2kPs/yinDuFzEKlK4dAkR0TluAbxwd7RniEv4E/XiesJIghnnGLfAACAI02JD3LeaVlcA/nZROJL0TJ4tkGcJgL8sLb8iCEcTzDjHuF3EKuIyxigLRZ5iB2A15qcaOYMErjawTwkmc3/Hb8GOKV3G7zWtzHoZS3ZPhdJqPaBeXN8RhKN2CatMy4Ido7Nmz5CnXdpDj0gbJFp8D7vVup/iYSLTFRhgQrhrAH/WtDoA2CAI1310iSjRPSABqfi0dt0dV0xbYAYJ525gT5+Z5FPQKyTVaQPgk6WlF96HHwIz6CbJTxChpX10iRToF4z3kPvT265jl/glMMDcyHvYs0C+QVzHUYd5J095P2zzLHHlPbsn/gnMIK7IGvb9Qt7d1FGgFxYgUeG1j/fAX4EZKLR+0f29DY8QYaUOezQo/gvMoBfaFp7fdCdIVPAe9uAFMANhGeYjMIP+CfsEsWiJ4x5NF3EDVxBh2cLtB0hYfjMHYRnmJzBDOUdYoX5w7CEDI57TwKhFEqtX0FmrPcT9jufofs9XYMdIeH+F+nU0QNZmYgDb2Q0WEZX5sgUtAPEAYl/C7W2hwI4R93EFu1UDZAAlELGlDns1DGLhjaAi6ERFa1+BAjuHTNpX0D2xdxCxydcUrZsIaolSUHX7sI4xgaHNlJJw+4IC01C6RxHslg14K7iXUT7NJb3MfEXQCwoQS5VArPesXUAbFFhTZGAasdnmbIYDgJfiK/39vQ/hSX+vIf1dFF/afh+zg1iqLS2VHgrsEsStioqvJdoN3D1EdIBYhWOqP1cxbp1hUXyhZV+Omb7bOwIosK6RuZtxu5bQuZRDYyxsgtKtpaA6gAJzTRk8WEKsi/k+hPCMtTx2VSkmh1BgQ1LOjxYoXbvj14ZrnA5C7ABUxZGidDlfin//xXnTMFBghDhkWkVvCJkYFBghDqHACHEIBUaIQygwQhxCgRHiEAqMEIdQYIQ4hAIjxCH/GroDxIIkD5+DeYQjh6lSfVPmH57KQ1xCtzW/juej10nxXXISWSGrdygwV4iQFii3rpxL2O2b95s/KTxnUGBdUG68PN4H1sQSmax4k/2OymsbC7zPxm8q6B1K4SXMvu8GCqwtMjdqWiDmGX3vxZJKWQu83Y+m2e18QLkB08/KWT1AgWl5W8ZMU3DzeICOzyKICxuhtLq2DaB7SE2OhIVu9FBgdTQX1TPKQTguQdkQS2cssu3/akq1saqUBQrsFFLpVyuqJ5SDzZ+Qub6SL+si1kCBGeQJbmrV2wIUforqHHqxzboO/SkoMBk897BP/FkWunSZV7D/vR4hf6vEca9GzXwFJm7gGvbJvRz4EISx4x5Ni/IYKJtV20Hcx9h9p8bHvATW7FhTPoE16M8I20MO3Yt76NVomIfAmgtrFqcvdo7OK5iV0PwXmN4VpLC6gkL7jb8Ck0yLGLo51j1DzA7QC23lqyvun8Bk8h1DFxW850JpD+TZPURode75M0RoaR9d6gu/Nlzm2RrAP6gX1wHANwThguLqiSDcQPIgv9e0+gjgH+TZppgze4EfFqyZO+jdU3JSSA7kBvUPQW+8i2kLTJ50awB/WloeIBPqjfM+ER06t/EJ8kCcbFbIdAUmT8ItaLWmi26+fIDcv0las2nOwWSu9RN2cX1FEEYU10gJwhRBGAH4WtPqCsDfyLPtFOdm07Jg8gfewh4h3EGeegy9TwXxSGLUb17dA7ib0n2djgWTG5BCl2QaTekmEKC4XxHk/p3jBsDPYv42CaZhwWTB8kHR8isDGR6gu9+TCICMX2B5FgP4bGl1gLgOifP+kH4QjyWBPVN/1FOB8QpM5lsJ7AVldhBxpa67RHpGooxb1I+BUUcZxzkHK59eNnE9Q+ZbqesukQGQ+xpB3MFzmCjjqoceNWZ8FkznGgDAI4Jw5bw/ZBzopgqjGxPjsmAUFzmH3O+6CCMAfC6EOBrGIzCpjZHALq6vFNdMkfv+xdLqM/IsGcui9DhcRH0Y/ovvG/SIAt142UHm54OG8Ye3YBQXaYqMA5sluwUwuCUb1oLJNpMfipYUF3nPBCzZcBaszIa3QXGR08i4+GZpNaglG8aCMVpIukQXwn8uMvd7pX8LVmZoUFykG3Qh/I9DhPD7tWD69KcnBOGd+w4Rr8izF9jHVq8P7r4tmC2vDDAJnIQ0J4LsGavjc59pVf0JLM9shU4ASdwcfO2CTBQZN3eQcVTHQ5HY4Jx+BCZPDE1hGoqLXIZsXVkpWsZFsM0p7gVWlumyweq6pBtk64otfH8FEZnT8L3bIId0/gWauvCMGJKuybME9mmJ04CaawsWwy6uHcVFHKGZj31yWePDncCk05rDtBmOJ24ogx42/nI1H3MjMOnsWtGSBUGJW6ROi20+BgBO6i66mYONcMGPzBzdmOx8Pta9BZOqu7b/iBT3J6Q/Voo2n7peH+vWgolr+FPR8j8ssUZ6Rx7+/7O0OgBYdLUe27UFixVtvlNcZBCCcA1JxatD1sc6ojuB6V3DdWfXJKQ5K0WbzlzFbgQmBSI1c6rRlzomniPZQnUnbRo6OWmzKwu2gW5/V9LR9Qi5hDXsC9A36CAQd3mQQ1dXo9OJIyEXoy+29O9L1mq7sGCxos2a4iKjQup5PCtaxpdc5jKByVPAlmu455FCZKSsFW0+Fl5aK9oLTCaAGuGsWl+DEJdITKDuYAlDawNxiQW7hz2w8czABhk5mkDGbdsyA+2CHGK9UtgFxowNMn50Zd/2CMJF01/d1oJprBfD8mQqrBVtbtpYseYWTG+9LgpvEtIrjqxYGwumtV5pi99NyFCsFW0aW7FmFozWi/iMAyvW1IKtYBfXE8VFJoomHH/TJBG4qcA0IU0uKpNpIonAmuwOdY6iXmC6rA2ue5GpozEQH7VFcppYsJWiTdzg9xEyPqRoqa2+PaC0YjqBiVptBRz3PCiPeILGit1p9otpLZhGrbHydxEydmJFmysoai7aBSYq1URNYkUbQsaPbK2yHegHKAyPxoLdgaF5Mj8054ff2oIdGoGtFG1iRRtCpoM+2LGq+8d6gUkxG/uhedIZQnxDM65rp082C8a5F5kzsaLNTZ2baBPYqqNOEDI9JLPjIjfxvMBElfZCojyVkvjNRW5inQVbdXRxQqZMrGhz1k2sE1jU0cUJmS4XuomnBSbRQ5t7eKB7SGaCxlOLTr15zoJpood0D8lcSBRtbgvD9AYKjBAb+nXeqPrGe4FJ7qFtcRnQqZoQX9AUKI2qb5yyYO8anWDHWvNkZiSKNlH1jbYCo3tI5kaiaHNTnYe1FZjmYoT4g0TMbWeKARX9vBWYLjwP1t0gM0WzLBUd/1C1YJpCHrZDpAnxlUTR5o2GqgKLOroIIT6SKNq88QDbCIzZG2Su6Mb+0YF9VYHZ518UGJkrsjSlyUv87SaWAtMek8n8QzJvNOP/hMB07qGmrDAhPqMR2MK8+HDqzRrSZn0hxDs0AvudakiBEdKMVNWqyOg4FhgTfAmxoY9BLAAjMEWN7QIm+BKiiyRGQGnBVEexMIJICACdm3gNlALTWDBNoiMhc0Adqm9iwWi9CBHUU6WmR8gSQnQu4kegFFik+AAtGCFCqm3YxIIxgkhIE/JsSReRkOakynbXDHIQ0pQGh00agdlOsAToIhLSlIguIiEOocAIaYcq8YICI6QdqpjEhwaJvoSQZiw/QJvoyygiIU251ruIrEVPSGP0AqMrSUhjmgQ5tK4kIaTgA1hngxBnfGiS9kEI+Y1myvTCdTBC2qGpgv2LAiPEIRQYIQ5pIrDIVScI8RUjMNacJ0RL5RzmGhjkIKQFC2W7RkGOqHk/CJk3RmDJkJ0gxFMaWTCmShEiqEvNG4FptqJo6nYQMgfUie9GYLqtKHlGK0aIzoLtgFJg2s2U3LJCiC6K+AswAtNvpoxadYcQv9DkIb4AbzM5NIvNtGBk3uinSUcWTEgVH+IcjMydRjVsmgpMc44zIT6jFVgKvBVYovqYPg+LEB9pdNzyscC0kUS6iWTOaLy4nXlRCkwiiZrT0ykwMk/0AY7fxqqaKqWxYpG2P4R4hlZgiXlRFVgCO7RgZK5EynaJedFGYFdMmSIzRTPu98eV2t4KrIh8dHQhQnxDk8GRHP9waruKJqMjUrQhxB/yLFK23B7/cEpg2xPvVdFejBBfiJTtkuMf2grshgvOZGZopkWP1cT59wKTCdru3fvviTS9IsQTNAJ7Z5zOlQzYKH5ZpGhDyPSRo7tuLK32CEK1wLawH/Ic2XtGiBdorFd86s3TAhM/0mbFOA8jc8EmsAPO6KWuqtQGdivG9TAyBxaWf9+cqwpwXmA6K0aBkTlQN87PWi/AfviDzYpRYGTunLVegE1g8sF1TQvW6CBz4Jwh2SEI13UftFf2DcINePoKmTfniu6ubB/Uls6+gz3gQYivnNqI/E2THK8TmLiKEd6LLFV9npBpUxXSo801NPzx+vqqv4zsA4shaft7AMsGRUsJmSYy7k2kMEYQxtqP/h8Kcr1TY0loCwAAAABJRU5ErkJggg==" />
+  <div class="coord mono">SEASON II — 03°S / 60°W</div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero__season">Season II · Amazonia</div>
+  <h1 class="hero__title">
+    <span><i>Whispers of the</i></span>
+    <span><i class="accent">Rainforest</i></span>
+  </h1>
+  <p class="hero__intro">
+    Neue Aromen, uraltes Wissen. Season II folgt den Flüssen des Amazonas — nicht als Bild,
+    sondern als System. Frucht, Samen und Schote werden zu Fragmenten: Herkunft, Transformation, Textur.
+  </p>
+  <div class="hero__meta">
+    <div class="cell"><div class="k">Region</div><div class="v">Amazonia</div></div>
+    <div class="cell"><div class="k">Season</div><div class="v">II</div></div>
+    <div class="cell"><div class="k">Ort</div><div class="v">BMW Welt · München</div></div>
+  </div>
+  <div class="scrollcue"><span class="line"></span> Sammlung öffnen</div>
+</section>
+
+<!-- ===== PHILOSOPHIE ===== -->
+<section class="philo">
+  <div class="eyebrow">Die Philosophie</div>
+  <p class="philo__lead">
+    Der Amazonas ist kein Ort, den man durchquert.<br>
+    <span class="soft">Er ist ein System, das sich selbst erhält.</span>
+  </p>
+  <div class="philo__body">
+    <p><span class="lead">Culinary Nomadism.</span> Die Wolke zieht weiter, verändert ihre Form, trägt
+       Erinnerungen mit sich. Season I führte durch Ost- und Südafrika — Hitze, Rauch, Trockenheit,
+       Horizont. Season II zieht in eine andere Welt.</p>
+    <p>Chef de Cuisine Jens Madsen reiste nach Belém und Manaus — auf die Märkte, in den Wald, in die
+       Küchen der Menschen vor Ort. Wie Cassava ein Dutzend Verwandlungen durchläuft. Wie Fisch,
+       getrocknet und geräuchert, Monate später als Basis eines Stews wiederkehrt.
+       <span class="lead">Nichts geht verloren.</span></p>
+  </div>
+  <p class="philo__close">Man lernt nicht über den Regenwald. Man erlebt ihn.</p>
+</section>
+
+<!-- ===== ATLAS ===== -->
+<section class="atlas" id="atlas">
+  <div class="atlas__head"><h2>Die Sammlung</h2></div>
+
+  <nav class="index" id="index" aria-label="Produktnavigation"></nav>
+
+  <article class="card" id="card">
+    <div class="plate">
+      <span class="tick tl mono" id="tick-tl">FR · 01</span>
+      <span class="tick tr mono">Ø — mm</span>
+      <span class="tick bl mono">AMAZONIA</span>
+      <span class="tick br mono" id="tick-br">FIG.</span>
+      <div class="figure" id="figure" aria-hidden="true"></div>
+    </div>
+
+    <div class="detail">
+      <div class="detail__frag"><span class="dotmark"></span><span id="frag">FRAGMENT</span></div>
+      <h3 class="detail__name" id="name">—</h3>
+      <div class="detail__latin" id="latin">—</div>
+      <p class="detail__lede" id="lede">—</p>
+
+      <div class="switch" role="tablist">
+        <button class="tab active" data-key="herkunft"  role="tab">Herkunft</button>
+        <button class="tab"        data-key="geschichte" role="tab">Geschichte</button>
+        <button class="tab"        data-key="verwendung" role="tab">Verwendung</button>
+        <button class="tab"        data-key="sensorik"   role="tab">Sensorik</button>
+      </div>
+
+      <div class="panel"><div class="panel__body in" id="panel"><p>—</p></div></div>
+
+      <div class="detail__foot">
+        <div class="m"><div class="k">Fragment</div><div class="v" id="m-frag">—</div></div>
+        <div class="m"><div class="k">Element</div><div class="v" id="m-elem">—</div></div>
+        <div class="m"><div class="k">Koordinate</div><div class="v mono" id="m-coord">—</div></div>
+      </div>
+    </div>
+  </article>
+
+  <div class="pager">
+    <button class="prev" id="prev"><span class="arrow">←</span> Zurück</button>
+    <span class="counter mono" id="counter">01 / 07</span>
+    <button class="next" id="next">Weiter <span class="arrow">→</span></button>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="foot">
+  <div class="foot__line">Geschlossen. Lebendig. In ewiger Transformation.</div>
+  <div class="foot__row">
+    <img class="foot__logo" alt="THE CLOUD by Käfer"
+         src="data:image/png;base64,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" />
+    <div class="foot__meta">Season II · Whispers of the Rainforest<br>BMW Welt München</div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   11 · DATEN — die sieben Zutaten
+   ============================================================ */
+const FRAGMENTS = [
+  {
+    id:"castanha", name:"Castanha-do-Brasil", latin:"Bertholletia excelsa",
+    fragment:"Nussigkeit", element:"Samen · Kapsel", coord:"03°S / 60°W", fig:"ourico",
+    lede:"Die verholzte Kapsel — der ouriço — birgt bis zu zwei Dutzend Samen im Herzen eines der höchsten Bäume des Waldes.",
+    herkunft:"Frucht des Paranussbaums aus dem intakten Primärwald. Die Kapsel reift über vierzehn Monate hoch im Kronendach und fällt als geschlossenes Gefäß zu Boden.",
+    geschichte:"Nie wirklich domestiziert — der Baum verweigert die Plantage. Seine Blüte öffnet nur einer einzigen wilden Bienenart; ohne den intakten Wald keine Frucht.",
+    verwendung:"Roh, geröstet, zu Milch und Öl gepresst. In der Küche als Emulsion, als Praline, als samtiger Träger für Salz und Säure.",
+    sensorik:"Dicht und cremig, mit kühler mineralischer Tiefe. Ein Nachhall von Harz, feuchter Rinde und stiller Erde."
+  },
+  {
+    id:"cupuacu", name:"Cupuaçu", latin:"Theobroma grandiflorum",
+    fragment:"Fermentation", element:"Frucht · Perikarp", coord:"02°S / 55°W", fig:"schale",
+    lede:"Der Verwandte des Kakaos: ein faseriges Gehäuse um weißes, blütiges Fruchtfleisch.",
+    herkunft:"Endemisch im östlichen Amazonasbecken. Das schwere, braun-fasrige Perikarp schützt eine cremige, säurehelle Pulpe.",
+    geschichte:"Der „Schokoladenbaum ohne Schokolade“. Seine Samen ergeben Cupulate — eine weiße, florale Alternative zur Kakaomasse.",
+    verwendung:"Als Püree, Sorbet und Ferment. Die Samen geröstet und vermahlen, die Pulpe roh in Säure und Kälte gefasst.",
+    sensorik:"Tropische Säure über Birne und Ananas, darunter eine dunkle, fast weinige Blüte."
+  },
+  {
+    id:"aguaje", name:"Aguaje · Buriti", latin:"Mauritia flexuosa",
+    fragment:"Säure", element:"Frucht · Schuppe", coord:"04°S / 73°W", fig:"aguaje",
+    lede:"Rote, überlappende Schuppen legen sich um weiches, ockerfarbenes Fleisch. Frucht der Sumpfpalme.",
+    herkunft:"Aus den aguajales — überschwemmten Palmensümpfen, die das Wasser des Beckens speichern. Die Moriche-Palme gilt als Baum des Lebens.",
+    geschichte:"Grundnahrung der Flussvölker, reich an Beta-Carotin. In Iquitos ein Straßengut, an der feinen Tafel ein Pigment.",
+    verwendung:"Als Pulpe, Öl und Ferment. Färbt den Teller in tiefes Ocker, trägt Fett und Süße zugleich.",
+    sensorik:"Fettig-weich, an Karotte und Avocado erinnernd, mit einer stillen, erdigen Säure."
+  },
+  {
+    id:"sapucaia", name:"Sapucaia", latin:"Lecythis pisonis",
+    fragment:"Mineralität", element:"Frucht · Kapsel", coord:"05°S / 45°W", fig:"urne",
+    lede:"Die urnenförmige Kapsel öffnet sich durch einen eigenen Deckel — der „Affentopf“ des Waldes.",
+    herkunft:"Naher Verwandter der Paranuss. Die Frucht reift als hölzernes Gefäß und entlässt ihre Samen durch ein fallendes Operculum.",
+    geschichte:"Ein botanisches Uhrwerk: Der Deckel öffnet, Tiere ernten, der Wald verteilt. Die Samen galten lange als edler als jede Nuss.",
+    verwendung:"Geröstet, als feines Öl, als Garnitur. Zarter und weniger fett als die Paranuss.",
+    sensorik:"Buttrig und fein, mit einer kühlen, steinigen Note im Abgang."
+  },
+  {
+    id:"jatoba", name:"Jatobá", latin:"Hymenaea courbaril",
+    fragment:"Stärke", element:"Schote · Fruchtmark", coord:"08°S / 63°W", fig:"jatoba",
+    lede:"Eine harte Schote um mehliges, gelbes Fruchtmark. Das „Brot des Waldes“.",
+    herkunft:"Baum des amazonischen Hochwaldes. Die dicke, glänzende Schote schützt ein trockenes, stärkereiches Mark.",
+    geschichte:"Nahrung und Ritual zugleich: Das Harz — Copal — brannte als Räucherwerk und diente als Firnis. Der Baum wird über Jahrhunderte alt.",
+    verwendung:"Das Mark zu Mehl vermahlen — für Brot, Cremes und Fermente. Erdig, sättigend, tragend.",
+    sensorik:"Trocken und würzig, muffig-süß. Ein Aroma zwischen Malz, Muskat und Waldboden."
+  },
+  {
+    id:"inga", name:"Inga", latin:"Inga edulis",
+    fragment:"Wald", element:"Schote · Arillus", coord:"03°S / 58°W", fig:"schote",
+    lede:"Eine lange Schote, gegliedert wie eine Wirbelsäule. Um jeden Samen ein watteweißes, süßes Vlies.",
+    herkunft:"Wächst an Ufern und Lichtungen; als Schattenbaum steht sie über den Kakaogärten und nährt zugleich den Boden.",
+    geschichte:"„Eis-Bohne“ genannt. Nahrung am Wegesrand — Kinder öffnen die Schote wie ein Geschenk und lösen das Vlies vom Kern.",
+    verwendung:"Das Arillus roh und gekühlt, zu Sorbet gefroren. Die Samen gekocht, mild und mehlig.",
+    sensorik:"Kühl und rein süß, an Vanille und Baumwolle erinnernd, ohne jede Schwere."
+  },
+  {
+    id:"cacau", name:"Cacau", latin:"Theobroma cacao",
+    fragment:"Rauch", element:"Frucht · Bohne", coord:"04°S / 70°W", fig:"cacau",
+    lede:"Der längliche, gerippte Kolben — Ursprung des Kakaos, lange bevor er Mesoamerika erreichte.",
+    herkunft:"Die Wiege des Kakaos liegt im westlichen Amazonasbecken. Hier wuchs die Frucht wild, an schattigen Flussläufen.",
+    geschichte:"„Speise der Götter“. Fermentiert, getrocknet, geröstet — eine Transformation in mehreren Akten, von der Kiste bis zum Feuer.",
+    verwendung:"Bohne, Nib, Butter, Masse. Von der Fermentation bis zur Röstung entfaltet sich das ganze Register.",
+    sensorik:"Bitter und röstig, mit Rauch, roter Frucht und einer tiefen, dunklen Erde."
+  }
+];
+
+/* ============================================================
+   12 · SVG-LINE-ART — an die Fotos angepasst, gleicher Stil
+   viewBox 0 0 200 240
+   ============================================================ */
+const ART = {
+  /* 1 · Paranuss-Kapsel — Aufsicht: dicker holziger Rand, gerissene Kammern */
+  ourico:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="30" x2="100" y2="210"/>
+      <line class="axis" x1="30" y1="120" x2="170" y2="120"/>
+      <g class="breathe">
+        <circle class="stroke d1" cx="100" cy="120" r="76" style="--len:480"/>
+        <circle class="stroke hl d2" cx="100" cy="120" r="52" style="--len:330"/>
+        <path class="stroke thin d3" d="M100 120 L100 70 M100 120 L142 104 M100 120 L134 156 M100 120 L74 158 M100 120 L62 106" style="--len:340"/>
+        <path class="stroke thin d4" d="M100 70 Q124 84 142 104 Q142 132 134 156 Q104 166 74 158 Q60 134 62 106 Q80 82 100 70 Z" style="--len:340"/>
+        <circle class="dot" cx="100" cy="120" r="2"/>
+      </g>
+    </svg>`,
+
+  /* 2 · Cupuaçu — ausgehöhlte, faserige Schale (Gefäß) */
+  schale:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="46" x2="100" y2="208"/>
+      <g class="breathe">
+        <path class="stroke d1" d="M44 92 C44 150 66 196 100 196 C134 196 156 150 156 92" style="--len:400"/>
+        <ellipse class="stroke hl d2" cx="100" cy="92" rx="56" ry="20" style="--len:250"/>
+        <ellipse class="stroke thin d2" cx="100" cy="94" rx="42" ry="14" style="--len:180"/>
+        <path class="stroke thin d3" d="M56 116 l4 16 M76 138 l3 20 M100 148 l0 22 M124 138 l-3 20 M144 116 l-4 16 M50 104 l3 11 M150 104 l-3 11" style="--len:120"/>
+        <path class="stroke moss d4" d="M70 170 C82 182 118 182 130 170" style="--len:80"/>
+      </g>
+    </svg>`,
+
+  /* 3 · Aguaje — Kugel aus überlappenden Schuppen, kleiner Apex */
+  aguaje:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="24" x2="100" y2="206"/>
+      <g class="breathe">
+        <circle class="stroke d1" cx="100" cy="126" r="70" style="--len:440"/>
+        <path class="stroke thin d3" d="M52 100 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0" style="--len:110"/>
+        <path class="stroke thin d3" d="M42 122 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0" style="--len:120"/>
+        <path class="stroke thin d4" d="M42 146 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0" style="--len:120"/>
+        <path class="stroke thin d4" d="M52 170 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0" style="--len:100"/>
+        <path class="stroke thin d4" d="M66 188 q6 6 12 0 q6 6 12 0 q6 6 12 0" style="--len:70"/>
+        <ellipse class="stroke moss d2" cx="100" cy="60" rx="12" ry="9" style="--len:66"/>
+        <path class="stroke hl d2" d="M100 58 C98 46 104 40 100 30" style="--len:44"/>
+      </g>
+    </svg>`,
+
+  /* 4 · Sapucaia — breiter Korpus, kurzer Schlot mit Öffnung (Affentopf) */
+  urne:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="34" x2="100" y2="210"/>
+      <g class="breathe">
+        <path class="stroke d1" d="M48 176 C40 130 60 92 88 90 L88 66 C88 58 112 58 112 66 L112 90 C140 92 160 130 152 176 C150 190 50 190 48 176 Z" style="--len:520"/>
+        <ellipse class="stroke hl d2" cx="100" cy="62" rx="12" ry="5" style="--len:64"/>
+        <ellipse class="stroke thin d2" cx="100" cy="62" rx="5" ry="2.4" style="--len:30"/>
+        <path class="stroke thin d3" d="M56 150 C76 162 124 162 144 150" style="--len:120"/>
+        <path class="stroke moss d4" d="M62 176 C82 186 118 186 138 176" style="--len:110"/>
+        <path class="stroke thin d4" d="M78 108 C80 130 82 150 84 168 M122 108 C120 130 118 150 116 168" style="--len:140"/>
+      </g>
+    </svg>`,
+
+  /* 5 · Jatobá — flacher, gelappter Samen mit Stiel im Einschnitt */
+  jatoba:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="34" x2="100" y2="206"/>
+      <g class="breathe">
+        <path class="stroke d1" d="M100 54 C142 54 160 92 160 120 C160 150 140 186 100 186 C60 186 40 150 40 120 C40 92 58 54 100 54 Z" style="--len:520"/>
+        <path class="stroke thin d3" d="M100 56 C95 78 95 98 100 114" style="--len:70"/>
+        <path class="stroke hl d2" d="M160 120 C172 118 182 122 192 119" style="--len:36"/>
+        <path class="stroke thin d2" d="M158 118 q-7 6 -3 13" style="--len:24"/>
+        <path class="stroke thin d4" d="M64 108 C86 96 118 96 138 110 M60 132 C84 122 120 122 142 134 M74 158 C92 151 112 151 128 160" style="--len:360"/>
+        <ellipse class="stroke moss d4" cx="100" cy="122" rx="26" ry="16" style="--len:132"/>
+      </g>
+    </svg>`,
+
+  /* 6 · Inga — lange, zweigeteilte Schote mit Samenreihe und Stielhaken */
+  schote:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="16" x2="100" y2="228"/>
+      <g class="breathe">
+        <path class="stroke moss d1" d="M100 30 C112 34 116 44 108 52" style="--len:44"/>
+        <path class="stroke d1" d="M99 54 C79 90 75 160 91 202 C95 210 99 210 99 202 Z" style="--len:420"/>
+        <path class="stroke d1" d="M101 54 C121 90 125 160 109 202 C105 210 101 210 101 202 Z" style="--len:420"/>
+        <line class="stroke hl d2" x1="100" y1="54" x2="100" y2="204" style="--len:150"/>
+        <g class="stroke thin d3" style="--len:60">
+          <ellipse cx="88" cy="92"  rx="5" ry="7"/><ellipse cx="88" cy="116" rx="5" ry="7"/>
+          <ellipse cx="88" cy="140" rx="5" ry="7"/><ellipse cx="88" cy="164" rx="5" ry="7"/>
+          <ellipse cx="88" cy="186" rx="4" ry="6"/>
+        </g>
+        <g class="stroke thin d4" style="--len:60">
+          <ellipse cx="112" cy="92"  rx="5" ry="7"/><ellipse cx="112" cy="116" rx="5" ry="7"/>
+          <ellipse cx="112" cy="140" rx="5" ry="7"/><ellipse cx="112" cy="164" rx="5" ry="7"/>
+          <ellipse cx="112" cy="186" rx="4" ry="6"/>
+        </g>
+        <circle class="dot" cx="88" cy="140" r="1.6"/>
+        <circle class="dot" cx="112" cy="116" r="1.6"/>
+      </g>
+    </svg>`,
+
+  /* 7 · Cacau — aufrechter, gerippter Kolben mit Faserbüschel am Apex */
+  cacau:`
+    <svg viewBox="0 0 200 240">
+      <line class="axis" x1="100" y1="16" x2="100" y2="224"/>
+      <g class="breathe">
+        <path class="stroke d1" d="M100 44 C126 70 134 130 120 184 C112 210 100 216 100 216 C100 216 88 210 80 184 C66 130 74 70 100 44 Z" style="--len:560"/>
+        <path class="stroke thin d3" d="M100 48 C92 110 92 168 100 210 M114 58 C122 116 116 168 106 206 M86 58 C78 116 84 168 94 206" style="--len:520"/>
+        <path class="stroke thin d4" d="M126 92 C124 140 116 176 106 202 M74 92 C76 140 84 176 94 202" style="--len:360"/>
+        <path class="stroke moss d2" d="M100 44 L100 28 M100 44 L94 30 M100 44 L106 30 M100 44 L89 34 M100 44 L111 34" style="--len:110"/>
+      </g>
+    </svg>`
+};
+
+/* ============================================================
+   13 · STEUERUNG
+   ============================================================ */
+const idxEl    = document.getElementById('index');
+const figureEl = document.getElementById('figure');
+const cardEl   = document.getElementById('card');
+const els = {
+  frag:document.getElementById('frag'), name:document.getElementById('name'),
+  latin:document.getElementById('latin'), lede:document.getElementById('lede'),
+  panel:document.getElementById('panel'),
+  mFrag:document.getElementById('m-frag'), mElem:document.getElementById('m-elem'), mCoord:document.getElementById('m-coord'),
+  tickTL:document.getElementById('tick-tl'), tickBR:document.getElementById('tick-br'),
+  counter:document.getElementById('counter'),
+};
+const tabs = [...document.querySelectorAll('.tab')];
+let current = 0, currentTab = 'herkunft';
+const pad = n => String(n).padStart(2,'0');
+
+FRAGMENTS.forEach((f,i)=>{
+  const b = document.createElement('button');
+  b.className = 'idx' + (i===0?' active':'');
+  b.setAttribute('role','tab');
+  b.innerHTML = `<span class="num mono">${pad(i+1)}</span><span class="nm">${f.name}</span>`;
+  b.addEventListener('click',()=>select(i));
+  idxEl.appendChild(b);
+});
+const idxButtons = [...idxEl.children];
+
+function paintPanel(key, animate=true){
+  const f = FRAGMENTS[current], body = els.panel;
+  const write = ()=>{
+    els.panel.innerHTML = `<p><span class="lead">${f.name}.</span> ${f[key]}</p>`;
+    requestAnimationFrame(()=> els.panel.classList.add('in'));
+  };
+  if(animate){ body.classList.remove('in'); setTimeout(write,180); } else write();
+}
+
+function select(i){
+  if(i<0 || i>=FRAGMENTS.length) return;
+  const changing = (i!==current);
+  current = i;
+  const f = FRAGMENTS[i];
+  idxButtons.forEach((b,k)=> b.classList.toggle('active', k===i));
+  idxButtons[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+
+  const render = ()=>{
+    els.frag.textContent  = 'Fragment · ' + f.fragment;
+    els.name.textContent  = f.name;
+    els.latin.textContent = f.latin;
+    els.lede.textContent  = f.lede;
+    els.mFrag.textContent = f.fragment;
+    els.mElem.textContent = f.element;
+    els.mCoord.textContent= f.coord;
+    els.tickTL.textContent= 'FR · ' + pad(i+1);
+    els.tickBR.textContent= 'FIG. ' + pad(i+1);
+    els.counter.textContent = pad(i+1) + ' / ' + pad(FRAGMENTS.length);
+
+    figureEl.classList.remove('draw');
+    figureEl.innerHTML = ART[f.fig] || '';
+    void figureEl.offsetWidth;
+    figureEl.classList.add('draw');
+
+    paintPanel(currentTab, false);
+    prevBtn.disabled = (i===0);
+    nextBtn.disabled = (i===FRAGMENTS.length-1);
+  };
+
+  if(changing){ cardEl.classList.add('swapping'); setTimeout(()=>{ render(); cardEl.classList.remove('swapping'); },300); }
+  else render();
+}
+
+tabs.forEach(t=> t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  currentTab = t.dataset.key;
+  paintPanel(currentTab, true);
+}));
+
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+prevBtn.addEventListener('click',()=>select(current-1));
+nextBtn.addEventListener('click',()=>select(current+1));
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') select(current+1);
+  if(e.key==='ArrowLeft')  select(current-1);
+});
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){
+    figureEl.classList.remove('draw'); void figureEl.offsetWidth; figureEl.classList.add('draw'); io.disconnect();
+  }});
+},{threshold:.25});
+io.observe(document.getElementById('atlas'));
+
+select(0);
+</script>
+</body>
+</html>
