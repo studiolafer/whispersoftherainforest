@@ -669,182 +669,88 @@ img{ display:block; max-width:100%; }
    11 · DATEN — die sieben Zutaten
    ============================================================ */
 const FRAGMENTS = [
-  {
-    id:"castanha", name:"Castanha-do-Brasil", latin:"Bertholletia excelsa",
-    fragment:"Nussigkeit", element:"Samen · Kapsel", coord:"03°S / 60°W", fig:"ourico",
-    lede:"Die verholzte Kapsel — der ouriço — birgt bis zu zwei Dutzend Samen im Herzen eines der höchsten Bäume des Waldes.",
-    herkunft:"Frucht des Paranussbaums aus dem intakten Primärwald. Die Kapsel reift über vierzehn Monate hoch im Kronendach und fällt als geschlossenes Gefäß zu Boden.",
-    geschichte:"Nie wirklich domestiziert — der Baum verweigert die Plantage. Seine Blüte öffnet nur einer einzigen wilden Bienenart; ohne den intakten Wald keine Frucht.",
-    verwendung:"Roh, geröstet, zu Milch und Öl gepresst. In der Küche als Emulsion, als Praline, als samtiger Träger für Salz und Säure.",
-    sensorik:"Dicht und cremig, mit kühler mineralischer Tiefe. Ein Nachhall von Harz, feuchter Rinde und stiller Erde."
-  },
-  {
-    id:"cupuacu", name:"Cupuaçu", latin:"Theobroma grandiflorum",
-    fragment:"Fermentation", element:"Frucht · Perikarp", coord:"02°S / 55°W", fig:"schale",
-    lede:"Der Verwandte des Kakaos: ein faseriges Gehäuse um weißes, blütiges Fruchtfleisch.",
-    herkunft:"Endemisch im östlichen Amazonasbecken. Das schwere, braun-fasrige Perikarp schützt eine cremige, säurehelle Pulpe.",
-    geschichte:"Der „Schokoladenbaum ohne Schokolade“. Seine Samen ergeben Cupulate — eine weiße, florale Alternative zur Kakaomasse.",
-    verwendung:"Als Püree, Sorbet und Ferment. Die Samen geröstet und vermahlen, die Pulpe roh in Säure und Kälte gefasst.",
-    sensorik:"Tropische Säure über Birne und Ananas, darunter eine dunkle, fast weinige Blüte."
-  },
-  {
-    id:"aguaje", name:"Aguaje · Buriti", latin:"Mauritia flexuosa",
-    fragment:"Säure", element:"Frucht · Schuppe", coord:"04°S / 73°W", fig:"aguaje",
-    lede:"Rote, überlappende Schuppen legen sich um weiches, ockerfarbenes Fleisch. Frucht der Sumpfpalme.",
-    herkunft:"Aus den aguajales — überschwemmten Palmensümpfen, die das Wasser des Beckens speichern. Die Moriche-Palme gilt als Baum des Lebens.",
-    geschichte:"Grundnahrung der Flussvölker, reich an Beta-Carotin. In Iquitos ein Straßengut, an der feinen Tafel ein Pigment.",
-    verwendung:"Als Pulpe, Öl und Ferment. Färbt den Teller in tiefes Ocker, trägt Fett und Süße zugleich.",
-    sensorik:"Fettig-weich, an Karotte und Avocado erinnernd, mit einer stillen, erdigen Säure."
-  },
-  {
-    id:"sapucaia", name:"Sapucaia", latin:"Lecythis pisonis",
-    fragment:"Mineralität", element:"Frucht · Kapsel", coord:"05°S / 45°W", fig:"urne",
-    lede:"Die urnenförmige Kapsel öffnet sich durch einen eigenen Deckel — der „Affentopf“ des Waldes.",
-    herkunft:"Naher Verwandter der Paranuss. Die Frucht reift als hölzernes Gefäß und entlässt ihre Samen durch ein fallendes Operculum.",
-    geschichte:"Ein botanisches Uhrwerk: Der Deckel öffnet, Tiere ernten, der Wald verteilt. Die Samen galten lange als edler als jede Nuss.",
-    verwendung:"Geröstet, als feines Öl, als Garnitur. Zarter und weniger fett als die Paranuss.",
-    sensorik:"Buttrig und fein, mit einer kühlen, steinigen Note im Abgang."
-  },
-  {
-    id:"jatoba", name:"Jatobá", latin:"Hymenaea courbaril",
-    fragment:"Stärke", element:"Schote · Fruchtmark", coord:"08°S / 63°W", fig:"jatoba",
-    lede:"Eine harte Schote um mehliges, gelbes Fruchtmark. Das „Brot des Waldes“.",
-    herkunft:"Baum des amazonischen Hochwaldes. Die dicke, glänzende Schote schützt ein trockenes, stärkereiches Mark.",
-    geschichte:"Nahrung und Ritual zugleich: Das Harz — Copal — brannte als Räucherwerk und diente als Firnis. Der Baum wird über Jahrhunderte alt.",
-    verwendung:"Das Mark zu Mehl vermahlen — für Brot, Cremes und Fermente. Erdig, sättigend, tragend.",
-    sensorik:"Trocken und würzig, muffig-süß. Ein Aroma zwischen Malz, Muskat und Waldboden."
-  },
-  {
-    id:"inga", name:"Inga", latin:"Inga edulis",
-    fragment:"Wald", element:"Schote · Arillus", coord:"03°S / 58°W", fig:"schote",
-    lede:"Eine lange Schote, gegliedert wie eine Wirbelsäule. Um jeden Samen ein watteweißes, süßes Vlies.",
-    herkunft:"Wächst an Ufern und Lichtungen; als Schattenbaum steht sie über den Kakaogärten und nährt zugleich den Boden.",
-    geschichte:"„Eis-Bohne“ genannt. Nahrung am Wegesrand — Kinder öffnen die Schote wie ein Geschenk und lösen das Vlies vom Kern.",
-    verwendung:"Das Arillus roh und gekühlt, zu Sorbet gefroren. Die Samen gekocht, mild und mehlig.",
-    sensorik:"Kühl und rein süß, an Vanille und Baumwolle erinnernd, ohne jede Schwere."
-  },
-  {
-    id:"cacau", name:"Cacau", latin:"Theobroma cacao",
-    fragment:"Rauch", element:"Frucht · Bohne", coord:"04°S / 70°W", fig:"cacau",
-    lede:"Der längliche, gerippte Kolben — Ursprung des Kakaos, lange bevor er Mesoamerika erreichte.",
-    herkunft:"Die Wiege des Kakaos liegt im westlichen Amazonasbecken. Hier wuchs die Frucht wild, an schattigen Flussläufen.",
-    geschichte:"„Speise der Götter“. Fermentiert, getrocknet, geröstet — eine Transformation in mehreren Akten, von der Kiste bis zum Feuer.",
-    verwendung:"Bohne, Nib, Butter, Masse. Von der Fermentation bis zur Röstung entfaltet sich das ganze Register.",
-    sensorik:"Bitter und röstig, mit Rauch, roter Frucht und einer tiefen, dunklen Erde."
-  }
+{
+  id:"bean-leitosa", name:"Bean Leitosa", latin:"Parkia pendula",
+  fragment:"Schote", element:"Bohnenschote · Brasilien", coord:"AMAZONIA / BR", fig:"beanleitosa",
+  lede:"Eine lange, geöffnete Bohnenschote aus Brasilien: dunkle Außenschale, helles Inneres, in seriellen Kammern angelegte Samenmulden.",
+  herkunft:"NaDeco führt die Bean Leitosa als getrocknete Bohnenschote aus Brasilien mit einer Länge von ca. 15 cm. Botanisch gehört sie zu Parkia pendula, einem Baum der feuchten Tropenwälder Südamerikas.",
+  geschichte:"Ihre Form erzählt weniger von Dekoration als von Architektur: zwei lange Klappen, eine zentrale Naht, repetitive Kammern. In einer Mise-en-Place des Amazonas wird sie zum Zeichen für Ordnung im Wilden.",
+  verwendung:"Nicht als kulinarische Zutat einsetzen, sondern als Anschauungs- und Inszenierungsmaterial: für Bar, Vitrine, Terrarium, floristische Arrangements oder als haptisches Objekt zur Erklärung von Samen, Schoten und Waldsystemen.",
+  sensorik:"Visuell trocken, dunkel, lederig; innen fast wachsig und hell. Die Oberfläche wirkt wie verkohlte Rinde, der Anschnitt wie ein präzise gegliedertes botanisches Register."
+},
+{
+  id:"cacau", name:"Getrocknete Kakaoschote", latin:"Theobroma cacao",
+  fragment:"Röstung", element:"Frucht · Schote", coord:"TROPEN / CACAO", fig:"kakaoschote",
+  lede:"Eine echte, naturbraun getrocknete Kakaofrucht ohne Bohnen, 10–15 cm groß, mit gerippter, ledrig-faltiger Oberfläche.",
+  herkunft:"NaDeco beschreibt die Kakaoschote als echte, naturbelassen getrocknete Kakaofrucht ohne Bohnen in der Größe 10–15 cm, gedacht als Anschauungs- und Naturmaterial.",
+  geschichte:"Der Kakaokolben ist das ikonische Gefäß einer der großen Fermentationsgeschichten der Welt. In der Küche beginnt Kakao nicht als Schokolade, sondern als Frucht, Pulpe, Bohne, Fermentation, Trocknung und Feuer.",
+  verwendung:"Für das HTML als visuelles Kapitel über Kakao: Herkunft, Fermentation und Transformation. Praktisch bleibt sie ein Dekorations- und Anschauungsobjekt, nicht die Bohne selbst.",
+  sensorik:"Optisch: trocken, braun, gerippt, fast lederartig. Sie ruft Röstaromen, bittere Tiefe, Rauch und rote Frucht auf, ohne diese selbst preiszugeben."
+},
+{
+  id:"sapucaia", name:"Sapucaia", latin:"Lecythis ollaria",
+  fragment:"Gefäß", element:"Kapsel · Paradiesnuss", coord:"BR / GUY / VE", fig:"sapucaia",
+  lede:"Eine große, holzige Kapsel von 10–14 cm Durchmesser, mit schwerem Körper, heller Randzone und tiefem Innenraum.",
+  herkunft:"NaDeco nennt Sapucaia eine naturbelassene Paradiesnuss von Lecythis ollaria; die Baumart wächst in Wäldern Brasiliens, Guyanas und Venezuelas.",
+  geschichte:"Botanisch ist Sapucaia ein Gefäß mit Mechanik: eine verholzte Fruchtkapsel, deren Deckel sich bei Reife löst und die Samen freigibt. Sie steht nahe bei den großen Lecythidaceae, zu denen auch der Paranussbaum zählt.",
+  verwendung:"Als Objekt für Bar, Tisch oder Terrarium wirkt Sapucaia wie ein natürliches Gefäß: Schale, Speicher, Miniaturarchitektur. In der Erzählung trägt sie das Motiv von Öffnung und Freigabe.",
+  sensorik:"Steinig, trocken, hellbraun, porös. Die Kante wirkt wie geschliffenes Holz, der Innenraum dunkel, rau und fast mineralisch."
+},
+{
+  id:"laranja", name:"Laranja Nuss", latin:"Mauritia flexuosa",
+  fragment:"Schuppen", element:"Palmenfrucht · Buriti", coord:"BR / PALME", fig:"laranja",
+  lede:"Eine ca. 5 cm große Buriti-Palmenfrucht mit rotbraunen, eng überlappenden Schuppen und kleinem Stielansatz.",
+  herkunft:"NaDeco führt die Laranja Nuss als brasilianische Frucht, botanisch Mauritia flexuosa, auch Buriti-Palmenfrucht, Schuppenfrucht, Coco Jurema oder Aguaje genannt.",
+  geschichte:"Buriti ist im Amazonasraum eine Schlüsselpalme der feuchten Landschaften. Die getrocknete Frucht zeigt, warum sie visuell so stark ist: jede Schuppe liegt wie ein Dachziegel über der nächsten.",
+  verwendung:"In der Inszenierung bringt sie Farbe, Rhythmus und Oberfläche. Sie eignet sich als Naturdeko, für Gestecke, Kränze, Tischbilder und als präzises haptisches Anschauungsobjekt.",
+  sensorik:"Rotbraun, dicht, glänzend, schuppig. Eine kleine Frucht mit großer Präsenz: botanisch streng, fast reptilartig, zugleich warm und ornamental."
+},
+{
+  id:"qurico", name:"Qurico Paranussschale", latin:"Bertholletia excelsa",
+  fragment:"Waldkern", element:"Fruchthülle · Paranuss", coord:"BR / OURICO", fig:"qurico",
+  lede:"Die verholzte äußere Fruchthülle des Paranussbaums, naturbelassen, robust, als kleine Schale von ca. 7–10 cm.",
+  herkunft:"NaDeco beschreibt Qurico als naturbelassene Schale aus der äußeren Fruchthülle des Paranussbaums Bertholletia excelsa, mit ca. 7–10 cm Durchmesser und Herkunft Brasilien.",
+  geschichte:"Der Ourico ist die schwere Kapsel, die im Wald zu Boden fällt und die Samen schützt. Als Objekt übersetzt er die Ökologie der Paranuss in eine klare Form: Schutz, Gewicht, Geduld.",
+  verwendung:"In der Gestaltung als Pflanzschale, Futterschale, Terrarienobjekt oder Materialprobe. Für THE CLOUD funktioniert Qurico als Symbol für Kapsel, Samen und intakten Wald.",
+  sensorik:"Hart, trocken, faserig, unregelmäßig. Die Oberfläche zeigt dunkle Einschlüsse, Einschnitte und Narben; der Innenraum wirkt kompakt und ruhig."
+},
+{
+  id:"affenohr", name:"Affenohr Schote", latin:"Enterolobium contortisiliquum",
+  fragment:"Kurve", element:"Schote · Ohrbaum", coord:"BR / ATLANTIC–TROPIC", fig:"affenohr",
+  lede:"Eine 6–9 cm große, dunkle, naturbelassene Dekoschote mit markanter, eingerollter Ohrform.",
+  herkunft:"NaDeco führt die Affenohr Schote als echtes Naturprodukt aus Brasilien; botanisch Enterolobium contortisiliquum, ca. 6–9 cm groß.",
+  geschichte:"Die Form erklärt den Namen: eine organische Spirale, glatt und dunkel, mit einer Einziehung um den Stiel. Sie ist weniger Hülse als plastische Geste.",
+  verwendung:"Als Tisch- und Schalendekoration, Vasenfüllung oder Detail in botanischen Arrangements. Im digitalen Produktbereich setzt sie einen starken Gegenpol zu offenen Schalen und linearen Schoten.",
+  sensorik:"Dunkel, glänzend, schwer, fast lackartig. Die Oberfläche wirkt wie poliertes Holz, die Form wie ein stilles, geschlossenes Ohr."
+},
+{
+  id:"chapeuzinho", name:"Chapeuzinho", latin:"Holopyxidium latifolium",
+  fragment:"Schale", element:"Monkey Pod · Fruchtschale", coord:"BR / MONKEY POD", fig:"chapeuzinho",
+  lede:"Eine ca. 7 cm große, naturbelassene Fruchtschale aus Brasilien, mit offenem, napfartigem Inneren und rauer Außenstruktur.",
+  herkunft:"NaDeco beschreibt Chapeuzinho als naturbelassenes Produkt aus Brasilien; botanisch Holopyxidium latifolium, auch Monkey pod, Tillandsien-Topf oder natürliche Futterschale genannt.",
+  geschichte:"Chapeuzinho bedeutet kleiner Hut. Genau so liest sich die Form: ein kleines, geöffnetes Gefäß, eher Fundstück als Produkt, zwischen Frucht, Schale und Objekt.",
+  verwendung:"Als Terrarien- oder Aquariumdekoration, Versteck, Futterschale oder Tillandsien-Gefäß. Im HTML wird daraus ein Kapitel über das Gefäßhafte im Regenwald.",
+  sensorik:"Hellbraun, trocken, rau, innen weicher und dunkler. Die Form wirkt archaisch, fast keramisch, aber eindeutig gewachsen."
+}
 ];
 
 /* ============================================================
-   12 · SVG-LINE-ART — an die Fotos angepasst, gleicher Stil
-   viewBox 0 0 200 240
+   12 · PRODUKTBILDER — NaDeco Produktfotos eingebunden, Produktbereich aktualisiert
    ============================================================ */
 const ART = {
-  /* 1 · Paranuss-Kapsel — Aufsicht: dicker holziger Rand, gerissene Kammern */
-  ourico:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="30" x2="100" y2="210"/>
-      <line class="axis" x1="30" y1="120" x2="170" y2="120"/>
-      <g class="breathe">
-        <circle class="stroke d1" cx="100" cy="120" r="76" style="--len:480"/>
-        <circle class="stroke hl d2" cx="100" cy="120" r="52" style="--len:330"/>
-        <path class="stroke thin d3" d="M100 120 L100 70 M100 120 L142 104 M100 120 L134 156 M100 120 L74 158 M100 120 L62 106" style="--len:340"/>
-        <path class="stroke thin d4" d="M100 70 Q124 84 142 104 Q142 132 134 156 Q104 166 74 158 Q60 134 62 106 Q80 82 100 70 Z" style="--len:340"/>
-        <circle class="dot" cx="100" cy="120" r="2"/>
-      </g>
-    </svg>`,
+  beanleitosa:`<img src="https://cdn.nadeco.de/item/images/1695/middle/1695-Bean--Leitosa------Fava--Blanchito------schwarz.jpg" alt="Bean Leitosa" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 2 · Cupuaçu — ausgehöhlte, faserige Schale (Gefäß) */
-  schale:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="46" x2="100" y2="208"/>
-      <g class="breathe">
-        <path class="stroke d1" d="M44 92 C44 150 66 196 100 196 C134 196 156 150 156 92" style="--len:400"/>
-        <ellipse class="stroke hl d2" cx="100" cy="92" rx="56" ry="20" style="--len:250"/>
-        <ellipse class="stroke thin d2" cx="100" cy="94" rx="42" ry="14" style="--len:180"/>
-        <path class="stroke thin d3" d="M56 116 l4 16 M76 138 l3 20 M100 148 l0 22 M124 138 l-3 20 M144 116 l-4 16 M50 104 l3 11 M150 104 l-3 11" style="--len:120"/>
-        <path class="stroke moss d4" d="M70 170 C82 182 118 182 130 170" style="--len:80"/>
-      </g>
-    </svg>`,
+  kakaoschote:`<img src="https://cdn.nadeco.de/item/images/1653/middle/1653-Getrocknete-Kakaoschote-Natur-Braun-10---15-cm---Echte-Kakaofrucht-ohne-Bohnen-_1.png" alt="Getrocknete Kakaoschote" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 3 · Aguaje — Kugel aus überlappenden Schuppen, kleiner Apex */
-  aguaje:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="24" x2="100" y2="206"/>
-      <g class="breathe">
-        <circle class="stroke d1" cx="100" cy="126" r="70" style="--len:440"/>
-        <path class="stroke thin d3" d="M52 100 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0" style="--len:110"/>
-        <path class="stroke thin d3" d="M42 122 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0" style="--len:120"/>
-        <path class="stroke thin d4" d="M42 146 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0 q8 8 16 0" style="--len:120"/>
-        <path class="stroke thin d4" d="M52 170 q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0" style="--len:100"/>
-        <path class="stroke thin d4" d="M66 188 q6 6 12 0 q6 6 12 0 q6 6 12 0" style="--len:70"/>
-        <ellipse class="stroke moss d2" cx="100" cy="60" rx="12" ry="9" style="--len:66"/>
-        <path class="stroke hl d2" d="M100 58 C98 46 104 40 100 30" style="--len:44"/>
-      </g>
-    </svg>`,
+  sapucaia:`<img src="https://cdn.nadeco.de/item/images/1561/middle/1561-Sapucaia---gross---Paradies--Nuss--Lecythis--ol.jpg" alt="Sapucaia" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 4 · Sapucaia — breiter Korpus, kurzer Schlot mit Öffnung (Affentopf) */
-  urne:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="34" x2="100" y2="210"/>
-      <g class="breathe">
-        <path class="stroke d1" d="M48 176 C40 130 60 92 88 90 L88 66 C88 58 112 58 112 66 L112 90 C140 92 160 130 152 176 C150 190 50 190 48 176 Z" style="--len:520"/>
-        <ellipse class="stroke hl d2" cx="100" cy="62" rx="12" ry="5" style="--len:64"/>
-        <ellipse class="stroke thin d2" cx="100" cy="62" rx="5" ry="2.4" style="--len:30"/>
-        <path class="stroke thin d3" d="M56 150 C76 162 124 162 144 150" style="--len:120"/>
-        <path class="stroke moss d4" d="M62 176 C82 186 118 186 138 176" style="--len:110"/>
-        <path class="stroke thin d4" d="M78 108 C80 130 82 150 84 168 M122 108 C120 130 118 150 116 168" style="--len:140"/>
-      </g>
-    </svg>`,
+  laranja:`<img src="https://cdn.nadeco.de/item/images/1642/middle/1642-Laranja--Nuss--Schuppen--Buriti--Frucht.jpg" alt="Laranja Nuss" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 5 · Jatobá — flacher, gelappter Samen mit Stiel im Einschnitt */
-  jatoba:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="34" x2="100" y2="206"/>
-      <g class="breathe">
-        <path class="stroke d1" d="M100 54 C142 54 160 92 160 120 C160 150 140 186 100 186 C60 186 40 150 40 120 C40 92 58 54 100 54 Z" style="--len:520"/>
-        <path class="stroke thin d3" d="M100 56 C95 78 95 98 100 114" style="--len:70"/>
-        <path class="stroke hl d2" d="M160 120 C172 118 182 122 192 119" style="--len:36"/>
-        <path class="stroke thin d2" d="M158 118 q-7 6 -3 13" style="--len:24"/>
-        <path class="stroke thin d4" d="M64 108 C86 96 118 96 138 110 M60 132 C84 122 120 122 142 134 M74 158 C92 151 112 151 128 160" style="--len:360"/>
-        <ellipse class="stroke moss d4" cx="100" cy="122" rx="26" ry="16" style="--len:132"/>
-      </g>
-    </svg>`,
+  qurico:`<img src="https://cdn.nadeco.de/item/images/1562/middle/1562-Qurico-natur-ca-7-10cm---Paranussschale_4.jpg" alt="Qurico Paranussschale" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 6 · Inga — lange, zweigeteilte Schote mit Samenreihe und Stielhaken */
-  schote:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="16" x2="100" y2="228"/>
-      <g class="breathe">
-        <path class="stroke moss d1" d="M100 30 C112 34 116 44 108 52" style="--len:44"/>
-        <path class="stroke d1" d="M99 54 C79 90 75 160 91 202 C95 210 99 210 99 202 Z" style="--len:420"/>
-        <path class="stroke d1" d="M101 54 C121 90 125 160 109 202 C105 210 101 210 101 202 Z" style="--len:420"/>
-        <line class="stroke hl d2" x1="100" y1="54" x2="100" y2="204" style="--len:150"/>
-        <g class="stroke thin d3" style="--len:60">
-          <ellipse cx="88" cy="92"  rx="5" ry="7"/><ellipse cx="88" cy="116" rx="5" ry="7"/>
-          <ellipse cx="88" cy="140" rx="5" ry="7"/><ellipse cx="88" cy="164" rx="5" ry="7"/>
-          <ellipse cx="88" cy="186" rx="4" ry="6"/>
-        </g>
-        <g class="stroke thin d4" style="--len:60">
-          <ellipse cx="112" cy="92"  rx="5" ry="7"/><ellipse cx="112" cy="116" rx="5" ry="7"/>
-          <ellipse cx="112" cy="140" rx="5" ry="7"/><ellipse cx="112" cy="164" rx="5" ry="7"/>
-          <ellipse cx="112" cy="186" rx="4" ry="6"/>
-        </g>
-        <circle class="dot" cx="88" cy="140" r="1.6"/>
-        <circle class="dot" cx="112" cy="116" r="1.6"/>
-      </g>
-    </svg>`,
+  affenohr:`<img src="https://cdn.nadeco.de/item/images/5924/middle/5924-Affenohr-Schote-Dekoschote-ca--6---9-cm-Enterolobium-contortisiliquum-Naturdeko.png" alt="Affenohr Schote" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`,
 
-  /* 7 · Cacau — aufrechter, gerippter Kolben mit Faserbüschel am Apex */
-  cacau:`
-    <svg viewBox="0 0 200 240">
-      <line class="axis" x1="100" y1="16" x2="100" y2="224"/>
-      <g class="breathe">
-        <path class="stroke d1" d="M100 44 C126 70 134 130 120 184 C112 210 100 216 100 216 C100 216 88 210 80 184 C66 130 74 70 100 44 Z" style="--len:560"/>
-        <path class="stroke thin d3" d="M100 48 C92 110 92 168 100 210 M114 58 C122 116 116 168 106 206 M86 58 C78 116 84 168 94 206" style="--len:520"/>
-        <path class="stroke thin d4" d="M126 92 C124 140 116 176 106 202 M74 92 C76 140 84 176 94 202" style="--len:360"/>
-        <path class="stroke moss d2" d="M100 44 L100 28 M100 44 L94 30 M100 44 L106 30 M100 44 L89 34 M100 44 L111 34" style="--len:110"/>
-      </g>
-    </svg>`
+  chapeuzinho:`<img src="https://cdn.nadeco.de/item/images/2155/middle/2155-Chapeuzinho-Natur-Groesse-ca--7cm---Holopyxidium-latifolium_2.jpg" alt="Chapeuzinho" style="width:100%;height:auto;display:block;object-fit:contain;filter:contrast(1.04) saturate(.88);" loading="eager" />`
 };
 
 /* ============================================================
