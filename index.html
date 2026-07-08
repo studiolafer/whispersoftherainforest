@@ -585,6 +585,339 @@ img{ display:block; max-width:100%; }
   filter:contrast(1.08) saturate(.86);
 }
 
+
+/* ============================================================
+   MOBILE + TABLET OPTIMISIERUNG
+   Layout bleibt gleich, nur Breakpoints, Größen und Bedienbarkeit
+   ============================================================ */
+
+/* Tablet Portrait / iPad */
+@media (min-width:761px) and (max-width:1180px){
+  :root{
+    --edge: clamp(26px, 4vw, 48px);
+  }
+  .hero{
+    min-height:88svh;
+    padding-top:118px;
+    padding-bottom:70px;
+  }
+  .hero__title{
+    max-width:11.5ch;
+  }
+  .hero__intro{
+    max-width:48ch;
+    margin-top:2.1rem;
+  }
+  .card{
+    grid-template-columns:minmax(0, .95fr) minmax(0, 1.05fr);
+    min-height:620px;
+  }
+  .plate{
+    padding:42px 30px;
+  }
+  .figure{
+    width:min(82%, 360px);
+  }
+  .detail{
+    padding:42px 38px;
+  }
+  .detail__name{
+    font-size:clamp(2rem, 4vw, 2.75rem);
+  }
+  .detail__lede,
+  .panel__body p{
+    font-size:.96rem;
+    line-height:1.72;
+  }
+  .index{
+    scroll-padding-left:var(--edge);
+  }
+  .idx{
+    padding:18px 20px 17px;
+  }
+}
+
+/* Tablet Landscape / smaller laptops */
+@media (min-width:861px) and (max-width:1180px) and (orientation:landscape){
+  .hero{
+    min-height:86svh;
+  }
+  .card{
+    min-height:560px;
+  }
+  .figure{
+    width:min(72%, 340px);
+  }
+  .detail{
+    padding:38px 36px;
+  }
+}
+
+/* Mobile + small tablet */
+@media (max-width:860px){
+  :root{
+    --edge: clamp(18px, 5.2vw, 34px);
+  }
+  body{
+    line-height:1.5;
+  }
+  .masthead{
+    padding-left:var(--edge);
+    padding-right:var(--edge);
+  }
+  .hero{
+    min-height:92svh;
+    padding:104px var(--edge) 70px;
+    justify-content:flex-end;
+  }
+  .hero__season{
+    margin-bottom:1.35rem;
+    font-size:.6rem;
+    letter-spacing:.24em;
+  }
+  .hero__title{
+    font-size:clamp(3.05rem, 16vw, 5.6rem);
+    line-height:.9;
+    max-width:9.4ch;
+  }
+  .hero__intro{
+    margin-top:1.75rem;
+    font-size:.96rem;
+    line-height:1.68;
+    max-width:36ch;
+  }
+  .hero__meta{
+    gap:1.45rem;
+    margin-top:2rem;
+  }
+  .hero__meta .cell .v{
+    font-size:.9rem;
+  }
+
+  .atlas__head{
+    padding:28px 0 18px;
+  }
+  .atlas__head h2{
+    font-size:1.28rem;
+  }
+
+  .index{
+    margin-left:calc(var(--edge) * -1);
+    margin-right:calc(var(--edge) * -1);
+    padding-left:var(--edge);
+    scroll-padding-left:var(--edge);
+  }
+  .idx{
+    min-height:54px;
+    padding:15px 18px 14px;
+  }
+  .idx .nm{
+    font-size:.76rem;
+  }
+
+  .card{
+    min-height:auto;
+  }
+  .plate{
+    min-height:48svh;
+    padding:46px 30px 42px;
+  }
+  .plate::before{
+    width:min(82%, 360px);
+  }
+  .plate .tick{
+    font-size:.48rem;
+    letter-spacing:.14em;
+  }
+  .plate .tick.tl{ top:16px; left:18px; }
+  .plate .tick.tr{ top:16px; right:18px; }
+  .plate .tick.bl{ bottom:16px; left:18px; }
+  .plate .tick.br{ bottom:16px; right:18px; }
+
+  .figure{
+    width:min(82%, 330px);
+  }
+  .figure img{
+    max-height:34svh;
+    object-fit:contain;
+  }
+
+  .detail{
+    padding:30px var(--edge) 34px;
+  }
+  .detail__frag{
+    margin-bottom:1rem;
+  }
+  .detail__frag span{
+    font-size:.55rem;
+    letter-spacing:.22em;
+  }
+  .detail__name{
+    font-size:clamp(2.15rem, 10vw, 3rem);
+    line-height:.98;
+  }
+  .detail__latin{
+    font-size:.92rem;
+  }
+  .detail__lede{
+    margin-top:1.1rem;
+    font-size:.94rem;
+    line-height:1.68;
+    max-width:100%;
+  }
+
+  .switch{
+    margin-top:2rem;
+    padding-top:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .switch::-webkit-scrollbar{
+    display:none;
+  }
+  .tab{
+    flex:0 0 auto;
+    margin-right:22px;
+    padding-bottom:13px;
+    font-size:.58rem;
+    letter-spacing:.2em;
+  }
+  .panel{
+    margin-top:1.45rem;
+    min-height:auto;
+  }
+  .panel__body p{
+    font-size:.94rem;
+    line-height:1.68;
+    max-width:100%;
+  }
+  .detail__foot{
+    gap:1.2rem;
+    margin-top:1.7rem;
+    padding-top:1rem;
+  }
+  .detail__foot .m{
+    flex:1 1 30%;
+    min-width:92px;
+  }
+  .detail__foot .m .v{
+    font-size:.78rem;
+  }
+  .pager{
+    padding:18px 0;
+  }
+  .pager button{
+    min-height:44px;
+    font-size:.58rem;
+    letter-spacing:.2em;
+  }
+  .pager .counter{
+    font-size:.58rem;
+  }
+  .foot{
+    padding-top:54px;
+    padding-bottom:calc(46px + env(safe-area-inset-bottom));
+  }
+  .foot__meta{
+    text-align:left;
+  }
+}
+
+/* Small mobile */
+@media (max-width:520px){
+  .hero{
+    min-height:94svh;
+    padding-top:92px;
+  }
+  .hero__title{
+    font-size:clamp(2.95rem, 18vw, 4.8rem);
+  }
+  .hero__intro{
+    font-size:.92rem;
+    line-height:1.64;
+  }
+  .hero__meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem 1.4rem;
+  }
+  .hero__meta .cell:nth-child(3){
+    grid-column:1 / -1;
+  }
+  .plate{
+    min-height:44svh;
+    padding:38px 24px 36px;
+  }
+  .figure{
+    width:min(88%, 300px);
+  }
+  .figure img{
+    max-height:30svh;
+  }
+  .detail{
+    padding-top:28px;
+  }
+  .detail__name{
+    font-size:clamp(2rem, 12vw, 2.7rem);
+  }
+  .idx{
+    padding-left:16px;
+    padding-right:16px;
+  }
+  .idx .nm{
+    font-size:.72rem;
+  }
+  .tab{
+    margin-right:18px;
+    font-size:.55rem;
+  }
+  .pager{
+    gap:.6rem;
+  }
+  .pager button{
+    gap:.45rem;
+  }
+}
+
+/* Very small devices */
+@media (max-width:380px){
+  .hero__title{
+    font-size:2.75rem;
+  }
+  .plate{
+    min-height:42svh;
+  }
+  .figure{
+    width:92%;
+  }
+  .figure img{
+    max-height:28svh;
+  }
+  .detail__name{
+    font-size:1.9rem;
+  }
+  .detail__lede,
+  .panel__body p{
+    font-size:.9rem;
+  }
+  .detail__foot .m{
+    flex:1 1 100%;
+  }
+}
+
+/* Touch comfort */
+@media (pointer:coarse){
+  .idx,
+  .tab,
+  .pager button{
+    touch-action:manipulation;
+  }
+  .idx{
+    min-width:max-content;
+  }
+}
+
 </style>
 </head>
 
